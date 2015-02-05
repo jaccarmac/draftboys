@@ -48,7 +48,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config_xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.2.2"
+    <widget id="com.jaccarmac.draftboys" version="0.3.0"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -61,6 +61,43 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
       <content src="index.html" />
       <access origin="*" />
     </widget>
+  #+END_SRC
+
+* Turn Nim into JavaScript.
+
+  Nim is a newish systems programming language with lots of abstractions that
+  compile down to C so they are very fast. The Nim compiler has an experimental
+  JavaScript compiler which I am attempting to integrate with Cordova as I
+  learn the language itself.
+
+  For now, the code is extremely simple and just duplicates what the old
+  JavaScript did. To compile it, run =nim js -o:www/js/index.js src/index.nim=.
+
+  #+BEGIN_SRC nim :tangle src/index.nim :padline no
+    import dom
+
+    proc querySelector(baseElement: ref dom.TNode, selectors: cstring):
+      ref dom.TNode {.importc: "Element.prototype.querySelector.call".}
+
+    proc receivedEvent(id: cstring) =
+      var parentElement = document.getElementByID(id)
+      var listeningElement = parentElement.querySelector(".listening")
+      var receivedElement = parentElement.querySelector(".received")
+      listeningElement.setAttribute("style", "display: none")
+      receivedElement.setAttribute("style", "display: block")
+
+    proc onDeviceReady() =
+      receivedEvent("deviceready")
+
+    proc addEventListener(typee: cstring,
+                          listener: proc (),
+                          useCapture: bool)
+                          {.importc: "document.addEventListener".}
+
+    proc bindEvents() =
+      addEventListener("deviceready", onDeviceReady, false)
+
+    bindEvents()
   #+END_SRC
 
 * Tangle source code.
