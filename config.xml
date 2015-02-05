@@ -1,12 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jaccarmac.draftboys" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>D R A F T B O Y S</name>
-    <description>
-        A sample Apache Cordova application that responds to the deviceready event.
-    </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
-    <content src="index.html" />
-    <access origin="*" />
+<widget id="com.jaccarmac.draftboys" version="0.2.0"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>D R A F T B O Y S</name>
+  <description>
+    Create, manage, and share DotA 2 drafts.
+  </description>
+  <author email="jaccarmac@gmail.com" href="http://jaccarmac.com">
+    Jacob MacDonald
+  </author>
+  <content src="index.html" />
+  <access origin="*" />
 </widget>

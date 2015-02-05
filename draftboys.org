@@ -1,0 +1,72 @@
+#+TITLE: =D R A F T B O Y S=
+#+AUTHOR: Jacob MacDonald
+
+#+BEGIN_SRC text :tangle UNLICENSE :padline no
+  This is free and unencumbered software released into the public domain.
+
+  Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+  software, either in source code form or as a compiled binary, for any purpose,
+  commercial or non-commercial, and by any means.
+
+  In jurisdictions that recognize copyright laws, the author or authors of this
+  software dedicate any and all copyright interest in the software to the public
+  domain. We make this dedication for the benefit of the public at large and to
+  the detriment of our heirs and successors. We intend this dedication to be an
+  overt act of relinquishment in perpetuity of all present and future rights to
+  this software under copyright law.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+  AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+  For more information, please refer to <http://unlicense.org/>
+#+END_SRC
+
+Some of the most fun DotA 2 games I've played have been the ones played with
+friends playing specific heroes in a prepared strategy. And as the group of
+friends I play with comes closer to forming an actual team, drafting theory
+becomes more and more important.
+
+=D R A F T B O Y S= is an application I hope will be helpful for myself, my
+friends, and people with similar goals in DotA 2. It is also a project which
+will help me practice Cordova, Nim, literate programming, and App Engine.
+
+* Configure Cordova.
+
+  The file layout of a Cordova project is way too complicated to put in a
+  literate program in anything close to a complete form. For more help on
+  Cordova's specifics, check out the [[http://cordova.apache.org/docs/en/edge/index.html][documentation for the latest version]].
+
+  The one Cordova file I will write in literate form is =config.xml=. The most
+  important things in this file are the version (which will change often) and
+  the app metadata (which should not have to change very often). Everything
+  else is copied from the default Cordova project's =config.xml=.
+
+  #+NAME: config_xml
+  #+BEGIN_SRC xml
+    <?xml version='1.0' encoding='utf-8'?>
+    <widget id="com.jaccarmac.draftboys" version="0.2.0"
+            xmlns="http://www.w3.org/ns/widgets"
+            xmlns:cdv="http://cordova.apache.org/ns/1.0">
+      <name>D R A F T B O Y S</name>
+      <description>
+        Create, manage, and share DotA 2 drafts.
+      </description>
+      <author email="jaccarmac@gmail.com" href="http://jaccarmac.com">
+        Jacob MacDonald
+      </author>
+      <content src="index.html" />
+      <access origin="*" />
+    </widget>
+  #+END_SRC
+
+* Tangle source code.
+
+** =config.xml=
+
+   #+BEGIN_SRC xml :noweb no-export :tangle config.xml :padline no
+     <<config_xml>>   
+   #+END_SRC
