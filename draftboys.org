@@ -48,7 +48,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config_xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.3.0"
+    <widget id="com.jaccarmac.draftboys" version="0.3.1"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -105,5 +105,5 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
 ** =config.xml=
 
    #+BEGIN_SRC xml :noweb no-export :tangle config.xml :padline no
-     <<config_xml>>   
+     <<config_xml>>
    #+END_SRC
