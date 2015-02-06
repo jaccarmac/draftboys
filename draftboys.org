@@ -34,6 +34,31 @@ becomes more and more important.
 friends, and people with similar goals in DotA 2. It is also a project which
 will help me practice Cordova, Nim, literate programming, and App Engine.
 
+* Build and run.
+
+  To build and run =D R A F T B O Y S= you will need:
+
+  * [[http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%2520Command-Line%2520Interface][Cordova CLI with Android platform.]]
+  * [[http://nim-lang.org/download.html][Nim.]]
+
+  First, compile the Nim project into JavaScript.
+
+  #+BEGIN_SRC sh
+    nim js -o:www/js/draftboys.js src/draftboys
+  #+END_SRC
+
+  Then, run the Cordova app on a device or emulator.
+
+  #+BEGIN_SRC sh
+    cordova run
+  #+END_SRC
+
+  Or test it in a browser.
+
+  #+BEGIN_SRC sh
+    cordova browse
+  #+END_SRC
+
 * Configure Cordova.
 
   The file layout of a Cordova project is way too complicated to put in a
@@ -48,7 +73,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config_xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.3.1"
+    <widget id="com.jaccarmac.draftboys" version="0.4.0"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -63,41 +88,80 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
     </widget>
   #+END_SRC
 
-* Turn Nim into JavaScript.
+* Provide content for single-page app.
 
-  Nim is a newish systems programming language with lots of abstractions that
-  compile down to C so they are very fast. The Nim compiler has an experimental
-  JavaScript compiler which I am attempting to integrate with Cordova as I
-  learn the language itself.
+  =D R A F T B O Y S= is a single-age app, so all the content for it is stored
+  in one HTML file.
 
-  For now, the code is extremely simple and just duplicates what the old
-  JavaScript did. To compile it, run =nim js -o:www/js/index.js src/index.nim=.
+  The beginning of the file contains metadata, a CSS ~link~, and a declaration
+  of a ~div~ with a class of ~app~. All content will be put in ~app~.
 
-  #+BEGIN_SRC nim :tangle src/index.nim :padline no
+  #+NAME: index.html-header
+  #+BEGIN_SRC web
+    <!doctype html>
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="format-detection" content="telephone=no" />
+            <meta name="msapplication-tap-highlight" content="no" />
+            <meta name="viewport" content="user-scalable=no, initial-scale=1,
+                                           maximum-scale=1, minimum-scale=1,
+                                           width=device-width,
+                                           height=device-height,
+                                           target-densitydpi=device-dpi" />
+            <link rel="stylesheet" type="text/css" href="css/draftboys.css">
+            <title>D R A F T B O Y S</title>
+        </head>
+        <body>
+            <div class="app">
+  #+END_SRC
+
+  The end of the file include relevant JavaScript and closes all the relevant
+  tags.
+
+  #+NAME: index.html-footer
+  #+BEGIN_SRC web
+            </div>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/draftboys.js"></script>
+        </body>
+    </html>
+  #+END_SRC
+
+  This is a placeholder tag with an ID to hook onto.
+
+  #+NAME: index.html-placeholder
+  #+BEGIN_SRC web
+    <h1 id="placeholder"></h1>
+  #+END_SRC
+
+* Style the document.
+
+  This section is a placeholder for now.
+
+* Implement app behavior.
+
+  The meat of the project is the actual behavior, which is implemented in Nim
+  before it gets compiled to JavaScript. Nim has a pretty good ~dom~ module and
+  an excellent FFI for JavaScript which we can use to fill in the holes in
+  ~dom~.
+
+  This section will contain subsections as the app matures. For now, here is
+  some simple placeholder behavior. One important thing to note is the FFI
+  declaration and use of ~addEventListener~ to bind the ~deviceready~ event.
+
+  #+NAME: draftboys.nim-placeholder
+  #+BEGIN_SRC nim
     import dom
 
-    proc querySelector(baseElement: ref dom.TNode, selectors: cstring):
-      ref dom.TNode {.importc: "Element.prototype.querySelector.call".}
+    proc addEventListener(target: ref TDocument, `type`: cstring,
+                          listener: proc (event: TEvent), useCapture: bool = false)
+                         {.importc: "EventTarget.prototype.addEventListener.call".}
 
-    proc receivedEvent(id: cstring) =
-      var parentElement = document.getElementByID(id)
-      var listeningElement = parentElement.querySelector(".listening")
-      var receivedElement = parentElement.querySelector(".received")
-      listeningElement.setAttribute("style", "display: none")
-      receivedElement.setAttribute("style", "display: block")
+    proc placeholderListener(event: TEvent) =
+      document.getElementById("placeholder").innerHTML = "Hello from Nim!"
 
-    proc onDeviceReady() =
-      receivedEvent("deviceready")
-
-    proc addEventListener(typee: cstring,
-                          listener: proc (),
-                          useCapture: bool)
-                          {.importc: "document.addEventListener".}
-
-    proc bindEvents() =
-      addEventListener("deviceready", onDeviceReady, false)
-
-    bindEvents()
+    document.addEventListener("deviceready", placeholderListener)
   #+END_SRC
 
 * Tangle source code.
@@ -106,4 +170,24 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
 
    #+BEGIN_SRC xml :noweb no-export :tangle config.xml :padline no
      <<config_xml>>
+   #+END_SRC
+
+** =www/index.html=
+
+   #+BEGIN_SRC web :noweb no-export :tangle www/index.html :padline no
+     <<index.html-header>>
+     <<index.html-placeholder>>
+     <<index.html-footer>>
+   #+END_SRC
+
+** =www/css/draftboys.css=
+
+   #+BEGIN_SRC web :noweb no-export :tangle www/css/draftboys.css :padline no
+
+   #+END_SRC
+
+** =src/draftboys.nim=
+
+   #+BEGIN_SRC nim :noweb no-export :tangle src/draftboys.nim :padline no
+     <<draftboys.nim-placeholder>>
    #+END_SRC
