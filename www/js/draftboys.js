@@ -280,29 +280,11 @@ e_9270 = {m_type: NTI3038, parent: null, name: null, message: null, trace: null}
 e_9270.message = cstrToNimstr("divison by zero");
 raiseException(e_9270, "DivByZeroError");
 }
-function receivedevent_17009(id_17011) {
-var F={procname:"index.receivedEvent",prev:framePtr,filename:"index.nim",line:0};
+function placeholderlistener_17011(event_17013) {
+var F={procname:"draftboys.placeholderListener",prev:framePtr,filename:"/home/jaccarmac/src/jaccarmac.com/draftboys/src/draftboys.nim",line:0};
 framePtr = F;
-F.line = 7;
-var parentelement_17012 = document.getElementById(id_17011);
 F.line = 8;
-var listeningelement_17013 = Element.prototype.querySelector.call(parentelement_17012, ".listening");
-F.line = 9;
-var receivedelement_17014 = Element.prototype.querySelector.call(parentelement_17012, ".received");
-listeningelement_17013.setAttribute("style", "display: none");
-receivedelement_17014.setAttribute("style", "display: block");
+document.getElementById("placeholder").innerHTML = "Hello from Nim!";
 framePtr = framePtr.prev;
 }
-function ondeviceready_17015() {
-var F={procname:"index.onDeviceReady",prev:framePtr,filename:"index.nim",line:0};
-framePtr = F;
-receivedevent_17009("deviceready");
-framePtr = framePtr.prev;
-}
-function bindevents_17024() {
-var F={procname:"index.bindEvents",prev:framePtr,filename:"index.nim",line:0};
-framePtr = F;
-document.addEventListener("deviceready", ondeviceready_17015, 0);
-framePtr = framePtr.prev;
-}
-bindevents_17024();
+EventTarget.prototype.addEventListener.call(document, "deviceready", placeholderlistener_17011, 0);
