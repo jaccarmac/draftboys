@@ -73,7 +73,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config.xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.4.2"
+    <widget id="com.jaccarmac.draftboys" version="0.4.3"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -147,8 +147,8 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   ~dom~.
 
   This section will contain subsections as the app matures. For now, here is
-  some simple placeholder behavior. One important thing to note is the FFI
-  declaration and use of ~addEventListener~ to bind the ~deviceready~ event.
+  some simple placeholder behavior. A placeholder listener is bound to the
+  ~deviceready~ event.
 
   #+NAME: draftboys.nim-placeholder
   #+BEGIN_SRC nim
