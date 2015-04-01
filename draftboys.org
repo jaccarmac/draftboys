@@ -73,7 +73,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config.xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.4.1"
+    <widget id="com.jaccarmac.draftboys" version="0.4.2"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -154,11 +154,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+BEGIN_SRC nim
     import dom
 
-    proc addEventListener(target: ref TDocument, `type`: cstring,
-                          listener: proc (event: TEvent), useCapture: bool = false)
-                         {.importc: "EventTarget.prototype.addEventListener.call".}
-
-    proc placeholderListener(event: TEvent) =
+    proc placeholderListener(event: ref TEvent) =
       document.getElementById("placeholder").innerHTML = "Hello from Nim!"
 
     document.addEventListener("deviceready", placeholderListener)
