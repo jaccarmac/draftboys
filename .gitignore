@@ -1,4 +1,4 @@
-/www/js/draftboys.js
-/platforms/android/assets/www/
-/platforms/android/ant-build/
-/platforms/android/CordovaLib/ant-build/
+/cordova/www/js/draftboys.js
+/cordova/platforms/android/assets/www/
+/cordova/platforms/android/ant-build/
+/cordova/platforms/android/CordovaLib/ant-build/
