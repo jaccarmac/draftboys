@@ -40,10 +40,12 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
 
   * [[http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%2520Command-Line%2520Interface][Cordova CLI with Android platform.]]
   * [[http://nim-lang.org/download.html][Nim.]]
+  * [[https://cloud.google.com/appengine/docs/go/gettingstarted/devenvironment][App Engine SDK for Go.]]
 
   First, compile the Nim project into JavaScript.
 
   #+BEGIN_SRC sh
+    cd cordova
     nim js -o:www/js/draftboys.js src/draftboys
   #+END_SRC
 
@@ -56,7 +58,16 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   Or test it in a browser.
 
   #+BEGIN_SRC sh
-    cordova browse
+    cordova serve
+  #+END_SRC
+
+  The app will connect to the App Engine API endpoint by default. If you need
+  to test changes to the server, you will need to change the endpoint to
+  =localhost= and run the App Engine project locally.
+
+  #+BEGIN_SRC sh
+    cd appengine
+    goapp serve
   #+END_SRC
 
 * Configure Cordova.
@@ -73,7 +84,7 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+NAME: config.xml
   #+BEGIN_SRC xml
     <?xml version='1.0' encoding='utf-8'?>
-    <widget id="com.jaccarmac.draftboys" version="0.4.5"
+    <widget id="com.jaccarmac.draftboys" version="0.5.0"
             xmlns="http://www.w3.org/ns/widgets"
             xmlns:cdv="http://cordova.apache.org/ns/1.0">
       <name>DRAFTBOYS</name>
@@ -154,36 +165,113 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
   #+BEGIN_SRC nim
     import dom
 
+    const
+      endpoint = "http://0-dot-draftboys-dota.appspot.com"
+
+    proc lazyRequest(endpoint: cstring): cstring {.importc.}
+
     proc placeholderListener(event: ref TEvent) =
-      document.getElementById("placeholder").innerHTML = "Hello from Nim!"
+      let
+        placeholder = document.getElementById("placeholder")
+        api = lazyRequest(endpoint)
+      placeholder.innerHTML = "Hello from Nim! "
+      placeholder.innerHTML = $placeholder.innerHTML & $api
+
 
     document.addEventListener("deviceready", placeholderListener)
   #+END_SRC
 
+  #+NAME: index.html-lazy-request
+  #+BEGIN_SRC web
+    <script type="text/javascript">
+     var lazyRequest = function(endpoint) {
+         var httpRequest = new XMLHttpRequest();
+         httpRequest.open('GET', endpoint + '/api/placeholder', false);
+         httpRequest.send();
+         return httpRequest.responseText;
+     };
+    </script>
+  #+END_SRC
+
+* Configure App Engine.
+
+  There is only standard Go App Engine configuration data here. The version
+  does change, but only on major version bumps. This way, there is less risk of
+  forgetting to version bump. The API must not be broken except over major
+  versions. Version 0 is exempt, of course.
+
+  #+NAME: app.yaml
+  #+BEGIN_SRC yaml
+    application: draftboys-dota
+    version: 0
+    runtime: go
+    api_version: go1
+
+    handlers:
+      - url: /.*
+        script: _go_app
+  #+END_SRC
+
+* Provide API.
+
+  Subsections will appear here eventually. For now there is a simple responder.
+
+  #+NAME: draftboys.go-placeholder
+  #+BEGIN_SRC go
+    package draftboys
+
+    import (
+            "fmt"
+            "net/http"
+    )
+
+    func init() {
+            http.HandleFunc("/api/placeholder", placeholder)
+    }
+
+    func placeholder(w http.ResponseWriter, r *http.Request) {
+            w.Header().Add("Access-Control-Allow-Origin", "*")
+            fmt.Fprint(w, "Hello from App Engine!")
+    }
+  #+END_SRC
+
 * Tangle source code.
 
-** =config.xml=
+** =cordova/config.xml=
 
-   #+BEGIN_SRC xml :noweb no-export :tangle config.xml :padline no
+   #+BEGIN_SRC xml :noweb no-export :tangle cordova/config.xml :padline no
      <<config.xml>>
    #+END_SRC
 
-** =www/index.html=
+** =cordova/www/index.html=
 
-   #+BEGIN_SRC web :noweb no-export :tangle www/index.html :padline no
+   #+BEGIN_SRC web :noweb no-export :tangle cordova/www/index.html :padline no
      <<index.html-header>>
      <<index.html-placeholder>>
+     <<index.html-lazy-request>>
      <<index.html-footer>>
    #+END_SRC
 
-** =www/css/draftboys.css=
+** =cordova/www/css/draftboys.css=
 
-   #+BEGIN_SRC web :noweb no-export :tangle www/css/draftboys.css :padline no
+   #+BEGIN_SRC web :noweb no-export :tangle cordova/www/css/draftboys.css :padline no
 
    #+END_SRC
 
-** =src/draftboys.nim=
+** =cordova/src/draftboys.nim=
 
-   #+BEGIN_SRC nim :noweb no-export :tangle src/draftboys.nim :padline no
+   #+BEGIN_SRC nim :noweb no-export :tangle cordova/src/draftboys.nim :padline no
      <<draftboys.nim-placeholder>>
+   #+END_SRC
+
+** =appengine/app.yaml=
+
+   #+BEGIN_SRC yaml :noweb no-export :tangle appengine/app.yaml :padline no
+     <<app.yaml>>
+   #+END_SRC
+
+** =appengine/draftboys.go=
+
+   #+BEGIN_SRC go :noweb no-export :tangle appengine/draftboys.go :padline no
+     <<draftboys.go-placeholder>>
    #+END_SRC

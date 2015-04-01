@@ -15,6 +15,14 @@
     <body>
         <div class="app">
 <h1 id="placeholder"></h1>
+<script type="text/javascript">
+ var lazyRequest = function(endpoint) {
+     var httpRequest = new XMLHttpRequest();
+     httpRequest.open('GET', endpoint + '/api/placeholder', false);
+     httpRequest.send();
+     return httpRequest.responseText;
+ };
+</script>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/draftboys.js"></script>
