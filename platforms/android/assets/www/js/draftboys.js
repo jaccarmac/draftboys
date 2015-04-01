@@ -6,7 +6,7 @@ var excHandler = null;
 var lastJSError = null;
 var NTI3038 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI104 = {size: 0,kind: 31,base: null,node: null,finalizer: null};
-var NTI8902 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
+var NTI8887 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI3008 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI138 = {size: 0,kind: 28,base: null,node: null,finalizer: null};
 var NTI140 = {size: 0,kind: 29,base: null,node: null,finalizer: null};
@@ -29,27 +29,27 @@ NTI3008.node = NNI3008;
 NTI3024.base = NTI3008;
 NTI3036.base = NTI3024;
 NTI3040.base = NTI3036;
-var NNI8902 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI140, name: "Field0", sons: null}, 
+var NNI8887 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI140, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI104, name: "Field1", sons: null}]};
-NTI8902.node = NNI8902;
+NTI8887.node = NNI8887;
 var NNI3038 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3038.node = NNI3038;
 NTI3038.base = NTI3036;
 var nim_program_result = [0];
-var globalraisehook_7613 = [null];
-var localraisehook_7618 = [null];
-var outofmemhook_7621 = [null];
-function cstrToNimstr(c_9363) {
+var globalraisehook_7813 = [null];
+var localraisehook_7818 = [null];
+var outofmemhook_7821 = [null];
+function cstrToNimstr(c_9310) {
     var result = [];
-    for (var i = 0; i < c_9363.length; ++i) {
-      result[i] = c_9363.charCodeAt(i);
+    for (var i = 0; i < c_9310.length; ++i) {
+      result[i] = c_9310.charCodeAt(i);
     }
     result[result.length] = 0; // terminating zero
     return result;
   }
-function arrayConstr(len_10281, value_10282, typ_10283) {
-    var result = new Array(len_10281);
-    for (var i = 0; i < len_10281; ++i) result[i] = nimCopy(value_10282, typ_10283);
+function arrayConstr(len_10466, value_10467, typ_10468) {
+    var result = new Array(len_10466);
+    for (var i = 0; i < len_10466; ++i) result[i] = nimCopy(value_10467, typ_10468);
     return result;
   }
 function SetConstr() {
@@ -66,182 +66,185 @@ function SetConstr() {
     }
     return result;
   }
-function isfatpointer_10098(ti_10100) {
-var result_10101 = false;
+function isfatpointer_10097(ti_10099) {
+var result_10100 = false;
 BeforeRet: do {
-result_10101 = !((SetConstr(17, 16, 4, 18, 27, 19, 23, 22, 21)[ti_10100.base.kind] != undefined));
+result_10100 = !((SetConstr(17, 16, 4, 18, 27, 19, 23, 22, 21)[ti_10099.base.kind] != undefined));
 break BeforeRet;
 } while (false); 
-return result_10101;
+return result_10100;
 }
-function nimCopyAux(dest_10122, src_10123, n_10125) {
-switch (n_10125.kind) {
+function nimCopyAux(dest_10118, src_10119, n_10121) {
+switch (n_10121.kind) {
 case 0: 
 break;
-case 1: dest_10122[n_10125.offset] = nimCopy(src_10123[n_10125.offset], n_10125.typ);
+case 1: dest_10118[n_10121.offset] = nimCopy(src_10119[n_10121.offset], n_10121.typ);
 break;
 case 2: L1: do {
-var i_10227 = 0;
-var HEX3Atmp_10229 = 0;
-HEX3Atmp_10229 = (n_10125.len - 1);
-var res_10232 = 0;
+var i_10415 = 0;
+var HEX3Atmp_10417 = 0;
+HEX3Atmp_10417 = (n_10121.len - 1);
+var res_10420 = 0;
 L2: do {
 L3: while (true) {
-if (!(res_10232 <= HEX3Atmp_10229)) break L3;
-i_10227 = res_10232;
-nimCopyAux(dest_10122, src_10123, n_10125.sons[i_10227]);
-res_10232 += 1;
+if (!(res_10420 <= HEX3Atmp_10417)) break L3;
+i_10415 = res_10420;
+nimCopyAux(dest_10118, src_10119, n_10121.sons[i_10415]);
+res_10420 += 1;
 }
 } while(false);
 } while(false);
 
 break;
-case 3:       dest_10122[n_10125.offset] = nimCopy(src_10123[n_10125.offset], n_10125.typ);
-      for (var i = 0; i < n_10125.sons.length; ++i) {
-        nimCopyAux(dest_10122, src_10123, n_10125.sons[i][1]);
+case 3:       dest_10118[n_10121.offset] = nimCopy(src_10119[n_10121.offset], n_10121.typ);
+      for (var i = 0; i < n_10121.sons.length; ++i) {
+        nimCopyAux(dest_10118, src_10119, n_10121.sons[i][1]);
       }
     
 break;
 }
 }
-function nimCopy(x_10118, ti_10119) {
-var result_10238 = null;
-switch (ti_10119.kind) {
-case 21: case 22: case 23: case 5: if (!(isfatpointer_10098(ti_10119))) {
-result_10238 = x_10118;
+function nimCopy(x_10114, ti_10115) {
+var result_10428 = null;
+switch (ti_10115.kind) {
+case 21: case 22: case 23: case 5: if (!(isfatpointer_10097(ti_10115))) {
+result_10428 = x_10114;
 }
 else {
-        result_10238 = [null, 0];
-        result_10238[0] = x_10118[0];
-        result_10238[1] = x_10118[1];
+        result_10428 = [null, 0];
+        result_10428[0] = x_10114[0];
+        result_10428[1] = x_10114[1];
       }
 
 
 break;
-case 19:       result_10238 = {};
-      for (var key in x_10118) { result_10238[key] = x_10118[key]; }
+case 19:       result_10428 = {};
+      for (var key in x_10114) { result_10428[key] = x_10114[key]; }
     
 break;
-case 18: case 17: if (!((ti_10119.base == null))) {
-result_10238 = nimCopy(x_10118, ti_10119.base);
+case 18: case 17: if (!((ti_10115.base == null))) {
+result_10428 = nimCopy(x_10114, ti_10115.base);
 }
 else {
-if ((ti_10119.kind == 17)) {
-result_10238 = {m_type: ti_10119};}
+if ((ti_10115.kind == 17)) {
+result_10428 = {m_type: ti_10115};}
 else {
-result_10238 = {};}
+result_10428 = {};}
 }
-nimCopyAux(result_10238, x_10118, ti_10119.node);
+nimCopyAux(result_10428, x_10114, ti_10115.node);
 
 break;
-case 24: case 4: case 27: case 16:       result_10238 = new Array(x_10118.length);
-      for (var i = 0; i < x_10118.length; ++i) {
-        result_10238[i] = nimCopy(x_10118[i], ti_10119.base);
+case 24: case 4: case 27: case 16:       result_10428 = new Array(x_10114.length);
+      for (var i = 0; i < x_10114.length; ++i) {
+        result_10428[i] = nimCopy(x_10114[i], ti_10115.base);
       }
     
 break;
-case 28: result_10238 = x_10118.slice(0);
+case 28:       if (x_10114 !== null) {
+        result_10428 = x_10114.slice(0);
+      }
+    
 break;
 default: 
-result_10238 = x_10118;
+result_10428 = x_10114;
 break;
 }
-return result_10238;
+return result_10428;
 }
-function add_7636(x_7639, x_7639_Idx, y_7640) {
+function add_7836(x_7839, x_7839_Idx, y_7840) {
 var F={procname:"system.add",prev:framePtr,filename:"lib/system.nim",line:0};
 framePtr = F;
-      var len = x_7639[0].length-1;
-      for (var i = 0; i < y_7640.length; ++i) {
-        x_7639[0][len] = y_7640.charCodeAt(i);
+      var len = x_7839[0].length-1;
+      for (var i = 0; i < y_7840.length; ++i) {
+        x_7839[0][len] = y_7840.charCodeAt(i);
         ++len;
       }
-      x_7639[0][len] = 0
+      x_7839[0][len] = 0
     framePtr = framePtr.prev;
 }
-function auxwritestacktrace_8897(f_8899) {
-var result_8900 = [null];
-var it_8905 = f_8899;
-var i_8906 = 0;
-var total_8907 = 0;
-var tempframes_8911 = arrayConstr(64, {Field0: null, Field1: 0}, NTI8902);
+function auxwritestacktrace_8882(f_8884) {
+var result_8885 = [null];
+var it_8890 = f_8884;
+var i_8891 = 0;
+var total_8892 = 0;
+var tempframes_8896 = arrayConstr(64, {Field0: null, Field1: 0}, NTI8887);
 L1: do {
 L2: while (true) {
-if (!(!((it_8905 == null)) && (i_8906 <= 63))) break L2;
-tempframes_8911[i_8906].Field0 = it_8905.procname;
-tempframes_8911[i_8906].Field1 = it_8905.line;
-i_8906 += 1;
-total_8907 += 1;
-it_8905 = it_8905.prev;
+if (!(!((it_8890 == null)) && (i_8891 <= 63))) break L2;
+tempframes_8896[i_8891].Field0 = it_8890.procname;
+tempframes_8896[i_8891].Field1 = it_8890.line;
+i_8891 += 1;
+total_8892 += 1;
+it_8890 = it_8890.prev;
 }
 } while(false);
 L3: do {
 L4: while (true) {
-if (!!((it_8905 == null))) break L4;
-total_8907 += 1;
-it_8905 = it_8905.prev;
+if (!!((it_8890 == null))) break L4;
+total_8892 += 1;
+it_8890 = it_8890.prev;
 }
 } while(false);
-result_8900[0] = cstrToNimstr("");
-if (!((total_8907 == i_8906))) {
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr("("));
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr(((total_8907 - i_8906))+""));
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr(" calls omitted) ...\x0A"));
+result_8885[0] = cstrToNimstr("");
+if (!((total_8892 == i_8891))) {
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr("("));
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr(((total_8892 - i_8891))+""));
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr(" calls omitted) ...\x0A"));
 }
 
 L5: do {
-var j_9007 = 0;
-var HEX3Atmp_9014 = 0;
-HEX3Atmp_9014 = (i_8906 - 1);
-var res_9017 = HEX3Atmp_9014;
+var j_9015 = 0;
+var HEX3Atmp_9021 = 0;
+HEX3Atmp_9021 = (i_8891 - 1);
+var res_9024 = HEX3Atmp_9021;
 L6: do {
 L7: while (true) {
-if (!(0 <= res_9017)) break L7;
-j_9007 = res_9017;
-add_7636(result_8900, 0, tempframes_8911[j_9007].Field0);
-if ((0 < tempframes_8911[j_9007].Field1)) {
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr(", line: "));
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr((tempframes_8911[j_9007].Field1)+""));
+if (!(0 <= res_9024)) break L7;
+j_9015 = res_9024;
+add_7836(result_8885, 0, tempframes_8896[j_9015].Field0);
+if ((0 < tempframes_8896[j_9015].Field1)) {
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr(", line: "));
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr((tempframes_8896[j_9015].Field1)+""));
 }
 
-result_8900[0] = (result_8900[0].slice(0, -1)).concat(cstrToNimstr("\x0A"));
-res_9017 -= 1;
+result_8885[0] = (result_8885[0].slice(0, -1)).concat(cstrToNimstr("\x0A"));
+res_9024 -= 1;
 }
 } while(false);
 } while(false);
-return result_8900[0];
+return result_8885[0];
 }
-function rawwritestacktrace_9018() {
-var result_9020 = null;
+function rawwritestacktrace_9028() {
+var result_9030 = null;
 if (!((framePtr == null))) {
-result_9020 = (cstrToNimstr("Traceback (most recent call last)\x0A").slice(0,-1)).concat(auxwritestacktrace_8897(framePtr));
+result_9030 = (cstrToNimstr("Traceback (most recent call last)\x0A").slice(0,-1)).concat(auxwritestacktrace_8882(framePtr));
 framePtr = null;
 }
 else {
 if (!((lastJSError == null))) {
-result_9020 = cstrToNimstr(lastJSError.stack);
+result_9030 = cstrToNimstr(lastJSError.stack);
 }
 else {
-result_9020 = cstrToNimstr("No stack traceback available\x0A");
+result_9030 = cstrToNimstr("No stack traceback available\x0A");
 }
 }
-return result_9020;
+return result_9030;
 }
-function eqStrings(a_9419, b_9420) {
-    if (a_9419 == b_9420) return true;
-    if ((!a_9419) || (!b_9420)) return false;
-    var alen = a_9419.length;
-    if (alen != b_9420.length) return false;
+function eqStrings(a_9366, b_9367) {
+    if (a_9366 == b_9367) return true;
+    if ((!a_9366) || (!b_9367)) return false;
+    var alen = a_9366.length;
+    if (alen != b_9367.length) return false;
     for (var i = 0; i < alen; ++i)
-      if (a_9419[i] != b_9420[i]) return false;
+      if (a_9366[i] != b_9367[i]) return false;
     return true;
   }
-function toJSStr(s_9367) {
-    var len = s_9367.length-1;
+function toJSStr(s_9314) {
+    var len = s_9314.length-1;
     var result = new Array(len);
     var fcc = String.fromCharCode;
     for (var i = 0; i < len; ++i) {
-      result[i] = fcc(s_9367[i]);
+      result[i] = fcc(s_9314[i]);
     }
     return result.join("");
   }
@@ -252,7 +255,7 @@ if (!((excHandler == null))) {
 excHandler.exc = e_9058;
 }
 else {
-var buf_9201 = [rawwritestacktrace_9018()];
+var buf_9201 = [rawwritestacktrace_9028()];
 if (!!(eqStrings(e_9058.message, null))) Tmp1 = false; else {Tmp1 = !((e_9058.message[0] == 0)); }if (Tmp1) {
 buf_9201[0] = (buf_9201[0].slice(0, -1)).concat(cstrToNimstr("Error: unhandled exception: "));
 buf_9201[0] = (buf_9201[0].slice(0, -1)).concat(e_9058.message);
@@ -262,29 +265,29 @@ buf_9201[0] = (buf_9201[0].slice(0, -1)).concat(cstrToNimstr("Error: unhandled e
 }
 
 buf_9201[0] = (buf_9201[0].slice(0, -1)).concat(cstrToNimstr(" ["));
-add_7636(buf_9201, 0, ename_9059);
+add_7836(buf_9201, 0, ename_9059);
 buf_9201[0] = (buf_9201[0].slice(0, -1)).concat(cstrToNimstr("]\x0A"));
 alert(toJSStr(buf_9201[0]));
 }
 
 throw e_9058;}
 function raiseOverflow() {
-var e_9247 = null;
-e_9247 = {m_type: NTI3040, parent: null, name: null, message: null, trace: null};
-e_9247.message = cstrToNimstr("over- or underflow");
-raiseException(e_9247, "OverflowError");
+var e_9234 = null;
+e_9234 = {m_type: NTI3040, parent: null, name: null, message: null, trace: null};
+e_9234.message = cstrToNimstr("over- or underflow");
+raiseException(e_9234, "OverflowError");
 }
 function raiseDivByZero() {
-var e_9270 = null;
-e_9270 = {m_type: NTI3038, parent: null, name: null, message: null, trace: null};
-e_9270.message = cstrToNimstr("divison by zero");
-raiseException(e_9270, "DivByZeroError");
+var e_9249 = null;
+e_9249 = {m_type: NTI3038, parent: null, name: null, message: null, trace: null};
+e_9249.message = cstrToNimstr("division by zero");
+raiseException(e_9249, "DivByZeroError");
 }
-function placeholderlistener_17011(event_17013) {
+function placeholderlistener_17001(event_17004) {
 var F={procname:"draftboys.placeholderListener",prev:framePtr,filename:"/home/jaccarmac/src/jaccarmac.com/draftboys/src/draftboys.nim",line:0};
 framePtr = F;
-F.line = 8;
+F.line = 4;
 document.getElementById("placeholder").innerHTML = "Hello from Nim!";
 framePtr = framePtr.prev;
 }
-EventTarget.prototype.addEventListener.call(document, "deviceready", placeholderlistener_17011, 0);
+document.addEventListener("deviceready", placeholderlistener_17001);
