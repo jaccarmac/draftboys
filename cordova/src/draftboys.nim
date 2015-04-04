@@ -12,5 +12,4 @@ proc placeholderListener(event: ref TEvent) =
   placeholder.innerHTML = "Hello from Nim! "
   placeholder.innerHTML = $placeholder.innerHTML & $api
 
-
 document.addEventListener("deviceready", placeholderListener)
