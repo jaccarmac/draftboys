@@ -1,5 +1,3 @@
-application: draftboys-dota
-version: 0
 runtime: go
 api_version: go1
 

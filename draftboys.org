@@ -211,8 +211,6 @@ will help me practice Cordova, Nim, literate programming, and App Engine.
 
   #+NAME: app.yaml
   #+BEGIN_SRC yaml
-    application: draftboys-dota
-    version: 0
     runtime: go
     api_version: go1
 
